@@ -15,24 +15,30 @@
 #include "cmsis_os2.h"
 #include <stdbool.h>
 
-int task_remain = 0, task02;
+int task_remain = 0, task02 = 0;
 volatile int mission = 0, angle = 47;
-bool limsw = false;
+volatile bool limsw = false;
+// osSemaphoreId_t limsw_sem;
+volatile bool Prepared = false;
 
 extern TIM_HandleTypeDef htim2;
-// extern TIM_HandleTypeDef htim3;
-
+extern TIM_HandleTypeDef htim4;
 
 void StartDefaultTask(void *argument)
 {
+	while (!Prepared)
+	{
+		osDelay(1);
+	}
 	HAL_TIM_Base_Start_IT(&htim2);
+	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
 	servo_init();
+	dc_motor_screen_init();
 	uros_init();
-	dc_motor(0);
 	for (;;)
 	{
 		uros_agent_status_check();
-		osDelay(100/FREQUENCY);
+		osDelay(100 / FREQUENCY);
 	}
 }
 
@@ -46,8 +52,7 @@ void StartTask02(void *argument)
 		switch (mission)
 		{
 		case 1:
-			mission = 0;
-			limsw = false;
+			mission = 0;	
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 			osDelay(1000);
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
@@ -55,32 +60,12 @@ void StartTask02(void *argument)
 
 		case 2:
 			mission = 0;
-			osDelay(1);
 			pusher();
 			break;
 
 		case 3:
 			mission = 0;
-			limsw = false;
-			dc_motor(1);
-			while (!limsw)
-			{
-				osDelay(1);
-			}
-			dc_motor(0);
-			osDelay(500);
-			dc_motor(-1);
-			osDelay(200);
-			limsw = false;
-			while (!limsw)
-			{
-				osDelay(1);
-			}
-			dc_motor(0);
-			osDelay(300);
-			dc_motor(1);
-			osDelay(100);
-			dc_motor(0);
+			screen();
 			break;
 
 		default:
@@ -95,7 +80,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	if (HAL_GPIO_ReadPin(GPIOB, GPIO_Pin) == GPIO_PIN_SET)
 	{
-		mission = 1;
 		limsw = true;
+		// osSemaphoreRelease(limsw_sem);
 	}
 }
