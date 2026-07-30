@@ -114,31 +114,51 @@ void handle_state_agent_disconnected(void) {
 }
 
 void uros_create_entities(void) {
+  rcl_ret_t rc;
+
   allocator = rcl_get_default_allocator();
 
   init_options = rcl_get_zero_initialized_init_options();
   rcl_init_options_init(&init_options, allocator);
   rcl_init_options_set_domain_id(&init_options, DOMAIN_ID);
 
-  rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator); // Initialize support structure
+  rc = rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator); // Initialize support structure
+  if (rc != RCL_RET_OK) {
+    printf("[uros] support_init failed: %d\n", (int)rc);
+  }
 
   rcl_init_options_fini(&init_options);
 
-  rclc_node_init_default(&node, NODE_NAME, "", &support);                       // Initialize node
+  rc = rclc_node_init_default(&node, NODE_NAME, "", &support);                       // Initialize node
+  if (rc != RCL_RET_OK) {
+    printf("[uros] node_init failed: %d\n", (int)rc);
+  }
 
   // MechanismCommand 帶有 string 欄位 (command_name / arg_json)，訂閱前要先 init
   // 讓 rosidl 配置好用來承接 deserialize 時動態配置字串記憶體的狀態
-  robot_interfaces__msg__MechanismCommand__init(&mechanism_command_msg);
+  bool init_ok = robot_interfaces__msg__MechanismCommand__init(&mechanism_command_msg);
+  if (!init_ok) {
+    printf("[uros] MechanismCommand__init failed\n");
+  }
 
-  rclc_subscription_init_default(                                               // Initialize subscriber for mechanism command
+  rc = rclc_subscription_init_default(                                               // Initialize subscriber for mechanism command
     &mechanism_command_sub,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(robot_interfaces, msg, MechanismCommand),
     "/mechanism/command");
+  if (rc != RCL_RET_OK) {
+    printf("[uros] subscription_init failed: %d\n", (int)rc);
+  }
 
-  rclc_executor_init(&executor, &support.context, 1, &allocator); // Create executor (0 timer + 1 subscriptions)
+  rc = rclc_executor_init(&executor, &support.context, 1, &allocator); // Create executor (0 timer + 1 subscriptions)
+  if (rc != RCL_RET_OK) {
+    printf("[uros] executor_init failed: %d\n", (int)rc);
+  }
 
-  rclc_executor_add_subscription(&executor, &mechanism_command_sub, &mechanism_command_msg, &mechanism_command_cb, ON_NEW_DATA); // Add subscriber to executor
+  rc = rclc_executor_add_subscription(&executor, &mechanism_command_sub, &mechanism_command_msg, &mechanism_command_cb, ON_NEW_DATA); // Add subscriber to executor
+  if (rc != RCL_RET_OK) {
+    printf("[uros] executor_add_subscription failed: %d\n", (int)rc);
+  }
 }
 
 void uros_destroy_entities(void) {

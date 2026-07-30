@@ -14,6 +14,8 @@ extern "C"{
 
 void servo_init();
 void pusher();
+void pusher_extend();
+void pusher_retract();
 
 #ifdef __cplusplus
 }
