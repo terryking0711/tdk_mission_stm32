@@ -18,6 +18,7 @@ robot_interfaces__msg__MechanismCommand     mechanism_command_msg;
 
 volatile uint16_t  mechanism_command_id = 0;
 volatile bool      mechanism_command_pending = false;
+volatile uint32_t  mechanism_command_rx_count = 0;
 
 rclc_support_t support;
 rcl_allocator_t allocator;
@@ -183,6 +184,8 @@ void mechanism_command_cb(const void *msgin){
     if (msg == NULL){
         return;
     }
+
+    mechanism_command_rx_count++;
 
     // 只搬 command_id 出去給 rtos_main.c 的 StartTask02 做 dispatch，
     // command_name / arg_json 目前沒用到，之後要用再從 mechanism_command_msg 讀

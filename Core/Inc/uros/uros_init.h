@@ -36,6 +36,10 @@ extern robot_interfaces__msg__MechanismCommand      mechanism_command_msg;
 extern volatile uint16_t  mechanism_command_id;
 extern volatile bool      mechanism_command_pending;
 
+/* printf 目前經由 huart3 (與 micro-ROS transport 共用) 無法輸出，
+ * 用這個計數器在除錯視窗 (Live Expressions) 確認 callback 是否真的被觸發 */
+extern volatile uint32_t  mechanism_command_rx_count;
+
 bool cubemx_transport_open(struct uxrCustomTransport * transport);
 bool cubemx_transport_close(struct uxrCustomTransport * transport);
 size_t cubemx_transport_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);

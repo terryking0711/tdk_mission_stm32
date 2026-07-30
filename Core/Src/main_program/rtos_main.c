@@ -62,10 +62,9 @@ void StartTask02(void *argument)
 		// /mechanism/command 觸發的機構動作
 		if (mechanism_command_pending)
 		{
-			uint16_t cmd_id = mechanism_command_id;
 			mechanism_command_pending = false;
 
-			switch (cmd_id)
+			switch (mechanism_command_id)
 			{
 			case 201:
 				osDelay(1);
