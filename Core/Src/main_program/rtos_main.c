@@ -43,6 +43,8 @@ void StartTask02(void *argument)
 		// __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, 500 + angle * per_1);
 		// __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 500 + angle * per_2);
 		task02++;
+
+		// 限位開關硬體事件 (由 HAL_GPIO_EXTI_Callback 觸發，跟 ROS 命令無關)
 		switch (mission)
 		{
 		case 1:
@@ -53,45 +55,56 @@ void StartTask02(void *argument)
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 			break;
 
-		case 201:
-			mission = 0;
-			osDelay(1);
-			pusher_extend();
-			break;
-		
-		case 202:
-			mission = 0;
-			osDelay(1);
-			pusher_retract();
-			break;
-			
-		case 203:
-			mission = 0;
-			limsw = false;
-			dc_motor(1);
-			while (!limsw)
-			{
-				osDelay(1);
-			}
-			dc_motor(0);
-			osDelay(500);
-			dc_motor(-1);
-			osDelay(200);
-			limsw = false;
-			while (!limsw)
-			{
-				osDelay(1);
-			}
-			dc_motor(0);
-			osDelay(300);
-			dc_motor(1);
-			osDelay(100);
-			dc_motor(0);
-			break;
-
 		default:
 			break;
 		}
+
+		// /mechanism/command 觸發的機構動作
+		if (mechanism_command_pending)
+		{
+			uint16_t cmd_id = mechanism_command_id;
+			mechanism_command_pending = false;
+
+			switch (cmd_id)
+			{
+			case 201:
+				osDelay(1);
+				pusher_extend();
+				break;
+
+			case 202:
+				osDelay(1);
+				pusher_retract();
+				break;
+
+			case 3:
+				limsw = false;
+				dc_motor(1);
+				while (!limsw)
+				{
+					osDelay(1);
+				}
+				dc_motor(0);
+				osDelay(500);
+				dc_motor(-1);
+				osDelay(200);
+				limsw = false;
+				while (!limsw)
+				{
+					osDelay(1);
+				}
+				dc_motor(0);
+				osDelay(300);
+				dc_motor(1);
+				osDelay(100);
+				dc_motor(0);
+				break;
+
+			default:
+				break;
+			}
+		}
+
 		task_remain = uxTaskGetStackHighWaterMark(NULL);
 		osDelay(1);
 	}

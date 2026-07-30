@@ -13,8 +13,11 @@
 #include <string.h>
 #include <rmw_microros/time_sync.h>
 
-rcl_subscription_t        mission_sub;
-std_msgs__msg__Int32      mission_msg;
+rcl_subscription_t                          mechanism_command_sub;
+robot_interfaces__msg__MechanismCommand     mechanism_command_msg;
+
+volatile uint16_t  mechanism_command_id = 0;
+volatile bool      mechanism_command_pending = false;
 
 rclc_support_t support;
 rcl_allocator_t allocator;
@@ -29,7 +32,6 @@ int ping_fail_count = 0;
 #define MAX_PING_FAIL_COUNT 5
 
 extern UART_HandleTypeDef huart3;
-int mission_level = 0;
 
 
 void uros_init(void) {
@@ -124,16 +126,19 @@ void uros_create_entities(void) {
 
   rclc_node_init_default(&node, NODE_NAME, "", &support);                       // Initialize node
 
-  rclc_subscription_init_default(                                               // Initialize subscriber for arm command
-    &mission_sub,
+  // MechanismCommand 帶有 string 欄位 (command_name / arg_json)，訂閱前要先 init
+  // 讓 rosidl 配置好用來承接 deserialize 時動態配置字串記憶體的狀態
+  robot_interfaces__msg__MechanismCommand__init(&mechanism_command_msg);
+
+  rclc_subscription_init_default(                                               // Initialize subscriber for mechanism command
+    &mechanism_command_sub,
     &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-    "robot/mission");
-  mission_msg.data = -1;
+    ROSIDL_GET_MSG_TYPE_SUPPORT(robot_interfaces, msg, MechanismCommand),
+    "/mechanism/command");
 
   rclc_executor_init(&executor, &support.context, 1, &allocator); // Create executor (0 timer + 1 subscriptions)
 
-  rclc_executor_add_subscription(&executor, &mission_sub, &mission_msg, &mission_sub_cb, ON_NEW_DATA); // Add subscriber to executor
+  rclc_executor_add_subscription(&executor, &mechanism_command_sub, &mechanism_command_msg, &mechanism_command_cb, ON_NEW_DATA); // Add subscriber to executor
 }
 
 void uros_destroy_entities(void) {
@@ -141,7 +146,8 @@ void uros_destroy_entities(void) {
   (void) rmw_uros_set_context_entity_destroy_session_timeout(rmw_context, 0);
 
   // Destroy subscriber
-  rcl_subscription_fini(&mission_sub, &node);
+  rcl_subscription_fini(&mechanism_command_sub, &node);
+  robot_interfaces__msg__MechanismCommand__fini(&mechanism_command_msg);
 
   // Destroy executor
   rclc_executor_fini(&executor);
@@ -151,12 +157,15 @@ void uros_destroy_entities(void) {
   rclc_support_fini(&support);
 }
 
-void mission_sub_cb(const void *msgin){
-    const std_msgs__msg__Int32 *msg = (const std_msgs__msg__Int32 *)msgin;
+void mechanism_command_cb(const void *msgin){
+    const robot_interfaces__msg__MechanismCommand *msg =
+        (const robot_interfaces__msg__MechanismCommand *)msgin;
     if (msg == NULL){
         return;
     }
-    mission_level = msg->data;
+
+    // 只搬 command_id 出去給 rtos_main.c 的 StartTask02 做 dispatch，
+    // command_name / arg_json 目前沒用到，之後要用再從 mechanism_command_msg 讀
+    mechanism_command_id = msg->command_id;
+    mechanism_command_pending = true;
 }
-
-
