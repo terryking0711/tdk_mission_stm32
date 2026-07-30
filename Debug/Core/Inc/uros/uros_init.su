@@ -1,10 +1,11 @@
-../Core/Inc/uros/uros_init.cpp:38:6:void uros_init()	40	static
-../Core/Inc/uros/uros_init.cpp:60:6:void uros_agent_status_check()	8	static
-../Core/Inc/uros/uros_init.cpp:82:6:void handle_state_agent_waiting()	8	static
-../Core/Inc/uros/uros_init.cpp:85:6:void handle_state_agent_available()	8	static
-../Core/Inc/uros/uros_init.cpp:89:6:void handle_state_agent_connected()	8	static
-../Core/Inc/uros/uros_init.cpp:100:6:void handle_state_agent_trying()	8	static
-../Core/Inc/uros/uros_init.cpp:112:6:void handle_state_agent_disconnected()	8	static
-../Core/Inc/uros/uros_init.cpp:117:6:void uros_create_entities()	56	static
-../Core/Inc/uros/uros_init.cpp:165:6:void uros_destroy_entities()	16	static
-../Core/Inc/uros/uros_init.cpp:181:6:void mechanism_command_cb(const void*)	24	static
+../Core/Inc/uros/uros_init.cpp:60:13:void mechanism_command_msg_bind_buffers()	4	static
+../Core/Inc/uros/uros_init.cpp:75:6:void uros_init()	40	static
+../Core/Inc/uros/uros_init.cpp:99:6:void uros_agent_status_check()	8	static
+../Core/Inc/uros/uros_init.cpp:110:6:void handle_state_agent_waiting()	8	static
+../Core/Inc/uros/uros_init.cpp:114:6:void handle_state_agent_available()	8	static
+../Core/Inc/uros/uros_init.cpp:119:6:void handle_state_agent_connected()	16	static
+../Core/Inc/uros/uros_init.cpp:139:6:void handle_state_agent_trying()	8	static
+../Core/Inc/uros/uros_init.cpp:152:6:void handle_state_agent_disconnected()	8	static
+../Core/Inc/uros/uros_init.cpp:157:6:void uros_create_entities()	56	static
+../Core/Inc/uros/uros_init.cpp:193:6:void uros_destroy_entities()	16	static
+../Core/Inc/uros/uros_init.cpp:206:6:void mechanism_command_cb(const void*)	24	static

@@ -76,7 +76,7 @@ void StartTask02(void *argument)
 				pusher_retract();
 				break;
 
-			case 3:
+			case 203:
 				limsw = false;
 				dc_motor(1);
 				while (!limsw)
