@@ -53,12 +53,18 @@ void StartTask02(void *argument)
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 			break;
 
-		case 2:
+		case 201:
 			mission = 0;
 			osDelay(1);
-			pusher();
+			pusher_extend();
 			break;
-
+		
+		case 202:
+			mission = 0;
+			osDelay(1);
+			pusher_retract();
+			break;
+			
 		case 3:
 			mission = 0;
 			limsw = false;

@@ -24,12 +24,14 @@ void servo_init(){
     servo_3_1.initial_servo();
 }
 
-void pusher(){
+void pusher_extend(){
     servo_2_2.set_angle(1);
     osDelay(500);
     servo_2_1.set_angle(1);
-    osDelay(1000);
-    servo_2_1.set_angle(0);
-    osDelay(500);
+}
+
+void pusher_retract(){
     servo_2_2.set_angle(0);
+    osDelay(500);
+    servo_2_1.set_angle(0);
 }
