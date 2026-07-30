@@ -10,7 +10,7 @@
 
 
 #define NODE_NAME "stm_mission_node"
-#define DOMAIN_ID 0
+#define DOMAIN_ID 30
 #define FREQUENCY 100
 #define USARTx huart3
 

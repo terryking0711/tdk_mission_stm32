@@ -65,7 +65,7 @@ void StartTask02(void *argument)
 			pusher_retract();
 			break;
 			
-		case 3:
+		case 203:
 			mission = 0;
 			limsw = false;
 			dc_motor(1);
