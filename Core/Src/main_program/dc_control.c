@@ -13,7 +13,7 @@
 
 extern volatile bool limsw;
 extern TIM_HandleTypeDef htim4;
-volatile uint16_t init_delay_time = 500;
+volatile uint16_t init_delay_time = 700;
 volatile int init_speed = 200;
 bool motion = false;
 // extern osSemaphoreId_t limsw_sem;
@@ -21,8 +21,7 @@ bool motion = false;
 void dc_motor_screen_init()
 {
     limsw = false;
-    // dc_motor(-1);
-    dc_motor_v02( -1, init_speed);
+    dc_motor_screen( -1, init_speed);
 
     uint32_t timeout_counter = 0;
     const uint32_t MAX_TIMEOUT_MS = 7000;
@@ -34,20 +33,16 @@ void dc_motor_screen_init()
 
         if (timeout_counter >= MAX_TIMEOUT_MS)
         {
-            // dc_motor(0);
-            dc_motor_v02(0 , 0);
+            dc_motor_screen(0 , 0);
             return;
         }
     }
-    // dc_motor(0);
-    dc_motor_v02(0, 0);
+    dc_motor_screen(0, 0);
     osDelay(400);
 
-    // dc_motor(1);
-    dc_motor_v02( 1, init_speed);
+    dc_motor_screen( 1, init_speed);
     osDelay(init_delay_time);
-    // dc_motor(0);
-    dc_motor_v02(0, 0);
+    dc_motor_screen(0, 0);
 
     limsw = false;
 }

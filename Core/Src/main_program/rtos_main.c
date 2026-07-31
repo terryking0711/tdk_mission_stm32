@@ -12,13 +12,13 @@
 #include "servo_monitor.hpp"
 #include "dc_control.h"
 #include "servo_motor_config.h"
+#include "ms_2.hpp"
 #include "cmsis_os2.h"
 #include <stdbool.h>
 
 int task_remain = 0, task02 = 0;
 volatile int mission = 0, angle = 47;
 volatile bool limsw = false;
-// osSemaphoreId_t limsw_sem;
 volatile bool Prepared = false;
 
 extern TIM_HandleTypeDef htim2;
@@ -46,12 +46,10 @@ void StartTask02(void *argument)
 {
 	for (;;)
 	{
-		// __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, 500 + angle * per_1);
-		// __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 500 + angle * per_2);
 		task02++;
 		switch (mission)
 		{
-		case 1:
+		case 1:// Test Light
 			mission = 0;	
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 			osDelay(1000);
@@ -65,7 +63,7 @@ void StartTask02(void *argument)
 
 		case 3:
 			mission = 0;
-			screen();
+			screen_rotate();
 			break;
 
 		default:
@@ -81,6 +79,5 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if (HAL_GPIO_ReadPin(GPIOB, GPIO_Pin) == GPIO_PIN_SET)
 	{
 		limsw = true;
-		// osSemaphoreRelease(limsw_sem);
 	}
 }

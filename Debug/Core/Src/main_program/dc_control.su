@@ -1,3 +1,2 @@
-../Core/Src/main_program/dc_control.c:21:6:dc_motor_init	16	static
-../Core/Src/main_program/dc_control.c:55:6:dc_motor	16	static
-../Core/Src/main_program/dc_control.c:75:6:dc_motor_v02	40	static
+../Core/Src/main_program/dc_control.c:21:6:dc_motor_screen_init	16	static
+../Core/Src/main_program/dc_control.c:50:6:dc_motor_screen	40	static

@@ -41,6 +41,7 @@ SUBDIRS := \
 Core/Inc/uros \
 Core/Src \
 Core/Src/main_program \
+Core/Src/main_program/mission_2 \
 Core/Startup \
 Drivers/STM32H7xx_HAL_Driver/Src \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \

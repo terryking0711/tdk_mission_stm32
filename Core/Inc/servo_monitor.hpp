@@ -16,7 +16,7 @@ extern "C"{
 
 void servo_init();
 void pusher();
-void screen();
+// void screen();
 
 #ifdef __cplusplus
 }
