@@ -9,9 +9,15 @@
 #include "servo_oop.hpp"
 #include "servo_monitor.hpp"
 #include "servo_motor_config.h"
+#include "dc_motor_config.h"
 #include "cmsis_os2.h"
 
 extern TIM_HandleTypeDef htim3;
+extern volatile bool limsw;
+// extern osSemaphoreId_t limsw_sem;
+
+volatile uint8_t mission_delay_time = 100;
+volatile int target_speed = 400;
 
 //                pwm      channel     prepare_angle   initial_angle   target_angle   period   per   min_pwm   max_pwm
 servo servo_2_1(&htim3, TIM_CHANNEL_1,      0 ,              0,            180,        300,    7.3 ,   500,     2500);
@@ -34,4 +40,35 @@ void pusher_retract(){
     servo_2_2.set_angle(0);
     osDelay(500);
     servo_2_1.set_angle(0);
+}
+
+void screen()
+{
+    // Consider EXTI: GPIO mode need to modify
+    servo_3_1.set_angle(1);
+    osDelay(500);
+    dc_motor_screen(1, target_speed);
+    osDelay(300);
+    limsw = false;
+    uint32_t timeout_counter = 0;
+    const uint32_t MAX_TIMEOUT_MS = 7000;
+
+    while (!limsw)
+    {
+        osDelay(1);
+        timeout_counter++;
+
+        if (timeout_counter >= MAX_TIMEOUT_MS)
+        {
+            dc_motor_screen(0 ,0);
+            return;
+        }
+    }
+    dc_motor_screen(0, 0);
+    limsw = false;
+    osDelay(500);
+    dc_motor_screen(-1, target_speed);
+    osDelay(mission_delay_time);
+    dc_motor_screen(0, 0);
+    limsw = false;
 }

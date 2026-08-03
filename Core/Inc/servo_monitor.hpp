@@ -12,10 +12,12 @@
 extern "C"{
 #endif
 
+#include "dc_control.h"
+
 void servo_init();
-void pusher();
 void pusher_extend();
 void pusher_retract();
+void screen();
 
 #ifdef __cplusplus
 }
