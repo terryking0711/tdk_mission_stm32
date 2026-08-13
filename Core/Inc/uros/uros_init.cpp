@@ -1,13 +1,12 @@
 /*
- * uros_init.cpp  —  修正版
+ * uros_init.c
  *
- * 主要修正：
- *  1. MechanismCommand 內含兩個 unbounded string，必須「預先配置」緩衝區，
- *     否則 cdr_deserialize 會因 capacity 不足直接回傳 false，
- *     executor 就不會呼叫 callback（靜默失敗）。
- *  2. AGENT_CONNECTED 狀態不再每圈 ping，改成每 1 秒 ping 一次，
- *     其餘時間全部拿去 spin executor。
+ *  Created on: Jul 15, 2026
+ *      Author: hsuanjung
  */
+
+
+
 
 #include "uros_init.h"
 #include <math.h>
@@ -34,9 +33,6 @@ agent_status_t status = AGENT_WAITING;
 
 int ping_fail_count = 0;
 #define MAX_PING_FAIL_COUNT 5
-
-/* AGENT_CONNECTED 狀態下的 ping 週期 (ms) */
-#define AGENT_PING_PERIOD_MS 1000U
 
 extern UART_HandleTypeDef huart3;
 
@@ -88,13 +84,10 @@ void uros_init(void) {
   freeRTOS_allocator.reallocate    = microros_reallocate;
   freeRTOS_allocator.zero_allocate = microros_zero_allocate;
 
-  /* 注意：printf 在本專案是空操作 (__io_putchar 未定義，linker 直接換成 nop)，
-   * 錯誤碼請改用 Live Expressions 觀察 uros_last_error。 */
-  (void) rcutils_set_default_allocator(&freeRTOS_allocator);
+  if (!rcutils_set_default_allocator(&freeRTOS_allocator)) {
+  printf("Error on default allocators (line %d)\n", __LINE__);
+  }
 }
-
-/* 把最後一次錯誤留下來給 debugger 看 */
-volatile int uros_last_error = 0;
 
 void uros_agent_status_check(void) {
   switch (status) {
@@ -194,11 +187,13 @@ void uros_destroy_entities(void) {
   rmw_context_t* rmw_context = rcl_context_get_rmw_context(&support.context);
   (void) rmw_uros_set_context_entity_destroy_session_timeout(rmw_context, 0);
 
-  rcl_subscription_fini(&mechanism_command_sub, &node);
+  // Destroy subscriber
+  rcl_subscription_fini(&mission_sub, &node);
 
-  /* 不要呼叫 MechanismCommand__fini()：字串指向靜態陣列，free 會炸 heap */
-
+  // Destroy executor
   rclc_executor_fini(&executor);
+
+  // Destroy node
   rcl_node_fini(&node);
   rclc_support_fini(&support);
 }
