@@ -32,7 +32,7 @@ void servo_init(){
     servo_2_3.initial_servo();
 }
 
-void pusher(){
+void pusher_extend(){
 //    screen.cw();
 //    limsw = false;
 //
@@ -59,7 +59,9 @@ void pusher(){
     servo_2_2.set_angle(1);
     osDelay(500);
     servo_2_1.set_angle(1);
-    osDelay(2000);
+}
+
+void pusher_retract(){
     servo_2_1.set_angle(0);
     osDelay(500);
     servo_2_2.set_angle(0);

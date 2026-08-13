@@ -55,22 +55,35 @@ void StartTask02(void *argument)
 			osDelay(1000);
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 			break;
-
-		case 2:
-			mission = 0;
-			pusher();
-			break;
-
-		case 3:
-			mission = 0;
-			screen_rotate();
-			break;
-
 		default:
 			break;
 		}
-		task_remain = uxTaskGetStackHighWaterMark(NULL);
-		osDelay(1);
+		// /mechanism/command 觸發的機構動作
+		if (mechanism_command_pending)
+		{
+			mechanism_command_pending = false;
+			switch (mechanism_command_id)
+			{
+			case 201:
+				osDelay(1);
+				pusher_extend();
+				break;
+
+			case 202:
+				osDelay(1);
+				pusher_retract();
+				break;
+
+			case 203:
+				screen();
+				break;
+
+			default:
+				break;
+			}
+			task_remain = uxTaskGetStackHighWaterMark(NULL);
+			osDelay(1);
+		}
 	}
 }
 
