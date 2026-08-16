@@ -31,6 +31,9 @@ public:
     bool cw();
     bool ccw();
 
+    uint32_t timeout_cnt;
+    const uint32_t MAX_TIMEOUT_MS = 7000;
+
 private:
     TIM_HandleTypeDef *_pwm;
     uint32_t _channel;

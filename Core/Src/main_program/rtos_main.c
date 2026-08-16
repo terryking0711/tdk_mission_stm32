@@ -12,12 +12,12 @@
 #include "servo_monitor.hpp"
 #include "dc_control.h"
 #include "servo_motor_config.h"
-#include "ms_2.hpp"
+#include "ms_2_monitor.h"
 #include "cmsis_os2.h"
 #include <stdbool.h>
 
 int task_remain = 0, task02 = 0;
-volatile int mission = 0, angle = 47;
+volatile int test_mission = 0, angle = 47;
 volatile bool limsw = false;
 volatile bool Prepared = false;
 
@@ -26,14 +26,13 @@ extern TIM_HandleTypeDef htim4;
 
 void StartDefaultTask(void *argument)
 {
-	while (!Prepared)
-	{
-		osDelay(1);
-	}
+//	while (!Prepared)
+//	{
+//		osDelay(1);
+//	}
 	HAL_TIM_Base_Start_IT(&htim2);
-	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
 	servo_init();
-	dc_motor_screen_init();
+	// dc_motor_screen_init();
 	uros_init();
 	for (;;)
 	{
@@ -47,43 +46,80 @@ void StartTask02(void *argument)
 	for (;;)
 	{
 		task02++;
-		switch (mission)
+		switch (test_mission)
 		{
 		case 1:// Test Light
-			mission = 0;	
+			test_mission = 0;	
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 			osDelay(1000);
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+			break;
+		case 2:
+			test_mission = 0;
+			MS_2_init();
+			break;
+		case 3:
+			test_mission = 0;
+			MS_2_CW_down();
+			break;
+		case 4:
+			test_mission = 0;
+			MS_2_CCW_down();
+			break;
+		case 5:
+			test_mission = 0;
+			MS_2_CW_rotate();
+			break;
+		case 6:
+			test_mission = 0;
+			MS_2_CCW_rotate();
+			break;
+		case 7:
+			test_mission = 0;
+			MS_2_close_blue();
+			break;
+		case 8:
+			test_mission = 0;
+			MS_2_close_pink();
+			break;
+		case 9:
+			test_mission = 0;
+			MS_2_open_blue();
+			break;
+		case 10:
+			test_mission = 0;
+			MS_2_open_pink();
 			break;
 		default:
 			break;
 		}
 		// /mechanism/command 觸發的機構動作
-		if (mechanism_command_pending)
-		{
-			mechanism_command_pending = false;
-			switch (mechanism_command_id)
-			{
-			case 201:
-				osDelay(1);
-				pusher_extend();
-				break;
+		// if (mechanism_command_pending)
+		// {
+		// 	mechanism_command_pending = false;
+		// 	switch (mechanism_command_id)
+		// 	{
+		// 	case 201:
+		// 		osDelay(1);
+		// 		pusher_extend();
+		// 		break;
 
-			case 202:
-				osDelay(1);
-				pusher_retract();
-				break;
+		// 	case 202:
+		// 		osDelay(1);
+		// 		pusher_retract();
+		// 		break;
 
-			case 203:
-				screen();
-				break;
+		// 	case 203:
+		// 		screen();
+		// 		break;
 
-			default:
-				break;
-			}
-			task_remain = uxTaskGetStackHighWaterMark(NULL);
-			osDelay(1);
-		}
+		// 	default:
+		// 		break;
+		// 	}
+		// 	task_remain = uxTaskGetStackHighWaterMark(NULL);
+		// 	osDelay(1);
+		// }
+	osDelay(1);
 	}
 }
 

@@ -1,0 +1,55 @@
+/*
+ * ms_2_monitor.cpp
+ *
+ *  Created on: Aug 13, 2026
+ *      Author: hsuanjung
+ */
+
+#include "ms_2.hpp"
+#include "main.h"
+#include "ms_2_monitor.h"
+#include "ms_2_config.h"
+
+extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim4;
+
+ms_2 MS_2(GPIOA, GPIO_PIN_4, &htim4, TIM_CHANNEL_1, 10, Speed_210, &htim3, TIM_CHANNEL_3, 93, 93, 180, 7.3, 500, 2500, &htim3, TIM_CHANNEL_4, 175, 175, 88, 7.3, 500, 2500);
+
+extern "C" {
+
+void MS_2_init(){
+    MS_2.init();
+}
+
+void MS_2_CW_down(){
+    MS_2.down_cw();
+}
+
+void MS_2_CCW_down(){
+    MS_2.down_ccw();
+}
+
+void MS_2_CW_rotate(){
+    MS_2.rotate_cw();
+}
+
+void MS_2_CCW_rotate(){
+    MS_2.rotate_ccw();
+}
+
+void MS_2_open_pink(){
+    MS_2.open_pink();
+}
+
+void MS_2_open_blue(){
+    MS_2.open_blue();
+}
+
+void MS_2_close_pink(){
+    MS_2.close_pink();
+}
+
+void MS_2_close_blue(){
+    MS_2.close_blue();
+}
+}

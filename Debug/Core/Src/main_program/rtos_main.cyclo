@@ -1,0 +1,3 @@
+../Core/Src/main_program/rtos_main.c:27:6:StartDefaultTask	1
+../Core/Src/main_program/rtos_main.c:44:6:StartTask02	11
+../Core/Src/main_program/rtos_main.c:126:6:HAL_GPIO_EXTI_Callback	2

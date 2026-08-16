@@ -1,6 +1,5 @@
-Core/Src/main_program/mission_2/ms_2.o: \
- ../Core/Src/main_program/mission_2/ms_2.cpp \
- ../Core/Src/main_program/mission_2/ms_2_config.h \
+Core/Src/main_program/mission_2/ms_2_monitor.o: \
+ ../Core/Src/main_program/mission_2/ms_2_monitor.cpp \
  ../Core/Src/main_program/mission_2/ms_2.hpp \
  ../Core/Inc/dc_driver_oop.hpp \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
@@ -37,9 +36,9 @@ Core/Src/main_program/mission_2/ms_2.o: \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  ../Core/Inc/stm32h7xx_it.h \
  ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h \
- ../Core/Inc/servo_oop.hpp ../Core/Inc/dc_control.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
-../Core/Src/main_program/mission_2/ms_2_config.h:
+ ../Core/Inc/servo_oop.hpp ../Core/Inc/main.h \
+ ../Core/Src/main_program/mission_2/ms_2_monitor.h \
+ ../Core/Src/main_program/mission_2/ms_2_config.h
 ../Core/Src/main_program/mission_2/ms_2.hpp:
 ../Core/Inc/dc_driver_oop.hpp:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
@@ -77,5 +76,6 @@ Core/Src/main_program/mission_2/ms_2.o: \
 ../Core/Inc/stm32h7xx_it.h:
 ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h:
 ../Core/Inc/servo_oop.hpp:
-../Core/Inc/dc_control.h:
-../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+../Core/Inc/main.h:
+../Core/Src/main_program/mission_2/ms_2_monitor.h:
+../Core/Src/main_program/mission_2/ms_2_config.h:

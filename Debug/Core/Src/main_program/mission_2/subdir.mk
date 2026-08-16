@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../Core/Src/main_program/mission_2/ms_2.cpp 
+../Core/Src/main_program/mission_2/ms_2.cpp \
+../Core/Src/main_program/mission_2/ms_2_monitor.cpp 
 
 OBJS += \
-./Core/Src/main_program/mission_2/ms_2.o 
+./Core/Src/main_program/mission_2/ms_2.o \
+./Core/Src/main_program/mission_2/ms_2_monitor.o 
 
 CPP_DEPS += \
-./Core/Src/main_program/mission_2/ms_2.d 
+./Core/Src/main_program/mission_2/ms_2.d \
+./Core/Src/main_program/mission_2/ms_2_monitor.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ Core/Src/main_program/mission_2/%.o Core/Src/main_program/mission_2/%.su Core/Sr
 clean: clean-Core-2f-Src-2f-main_program-2f-mission_2
 
 clean-Core-2f-Src-2f-main_program-2f-mission_2:
-	-$(RM) ./Core/Src/main_program/mission_2/ms_2.cyclo ./Core/Src/main_program/mission_2/ms_2.d ./Core/Src/main_program/mission_2/ms_2.o ./Core/Src/main_program/mission_2/ms_2.su
+	-$(RM) ./Core/Src/main_program/mission_2/ms_2.cyclo ./Core/Src/main_program/mission_2/ms_2.d ./Core/Src/main_program/mission_2/ms_2.o ./Core/Src/main_program/mission_2/ms_2.su ./Core/Src/main_program/mission_2/ms_2_monitor.cyclo ./Core/Src/main_program/mission_2/ms_2_monitor.d ./Core/Src/main_program/mission_2/ms_2_monitor.o ./Core/Src/main_program/mission_2/ms_2_monitor.su
 
 .PHONY: clean-Core-2f-Src-2f-main_program-2f-mission_2
 

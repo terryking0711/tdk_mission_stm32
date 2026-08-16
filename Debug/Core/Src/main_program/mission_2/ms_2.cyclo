@@ -1,1 +1,11 @@
-../Core/Src/main_program/mission_2/ms_2.cpp:18:6:void screen_rotate()	5
+../Core/Src/main_program/mission_2/ms_2.cpp:21:6:void ms_2::init()	1
+../Core/Src/main_program/mission_2/ms_2.cpp:32:6:void ms_2::down_cw()	3
+../Core/Src/main_program/mission_2/ms_2.cpp:57:6:void ms_2::down_ccw()	3
+../Core/Src/main_program/mission_2/ms_2.cpp:82:6:void ms_2::rotate_cw()	2
+../Core/Src/main_program/mission_2/ms_2.cpp:91:6:void ms_2::rotate_ccw()	2
+../Core/Src/main_program/mission_2/ms_2.cpp:100:6:void ms_2::wait_limit_switch()	3
+../Core/Src/main_program/mission_2/ms_2.cpp:117:6:void ms_2::close_blue()	1
+../Core/Src/main_program/mission_2/ms_2.cpp:122:6:void ms_2::close_pink()	1
+../Core/Src/main_program/mission_2/ms_2.cpp:127:6:void ms_2::open_blue()	1
+../Core/Src/main_program/mission_2/ms_2.cpp:132:6:void ms_2::open_pink()	1
+../Core/Src/main_program/mission_2/ms_2.cpp:137:6:void screen_rotate()	5

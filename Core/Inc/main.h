@@ -61,15 +61,19 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define screen_dc_motor_dir_Pin GPIO_PIN_4
 #define screen_dc_motor_dir_GPIO_Port GPIOA
-#define TIANKONGRC_11kg_1_Pin GPIO_PIN_6
-#define TIANKONGRC_11kg_1_GPIO_Port GPIOA
-#define Gobilda_300_torque_Pin GPIO_PIN_7
-#define Gobilda_300_torque_GPIO_Port GPIOA
+#define pwm_200_Pin GPIO_PIN_6
+#define pwm_200_GPIO_Port GPIOA
+#define pwm_201_Pin GPIO_PIN_7
+#define pwm_201_GPIO_Port GPIOA
+#define pwm_203_Pin GPIO_PIN_1
+#define pwm_203_GPIO_Port GPIOB
 #define Limit_Switch_Pin GPIO_PIN_2
 #define Limit_Switch_GPIO_Port GPIOB
 #define Limit_Switch_EXTI_IRQn EXTI2_IRQn
-#define TIANKONGRC_11kg_2_Pin GPIO_PIN_8
-#define TIANKONGRC_11kg_2_GPIO_Port GPIOC
+#define pwm_210_Pin GPIO_PIN_12
+#define pwm_210_GPIO_Port GPIOD
+#define pwm_202_Pin GPIO_PIN_8
+#define pwm_202_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
 
