@@ -59,21 +59,27 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define screen_dc_motor_dir_Pin GPIO_PIN_4
-#define screen_dc_motor_dir_GPIO_Port GPIOA
-#define pwm_200_Pin GPIO_PIN_6
-#define pwm_200_GPIO_Port GPIOA
-#define pwm_201_Pin GPIO_PIN_7
-#define pwm_201_GPIO_Port GPIOA
-#define pwm_203_Pin GPIO_PIN_1
-#define pwm_203_GPIO_Port GPIOB
-#define Limit_Switch_Pin GPIO_PIN_2
-#define Limit_Switch_GPIO_Port GPIOB
-#define Limit_Switch_EXTI_IRQn EXTI2_IRQn
-#define pwm_210_Pin GPIO_PIN_12
-#define pwm_210_GPIO_Port GPIOD
-#define pwm_202_Pin GPIO_PIN_8
-#define pwm_202_GPIO_Port GPIOC
+#define dc_motor_screen_1_Pin GPIO_PIN_1
+#define dc_motor_screen_1_GPIO_Port GPIOA
+#define dc_motor_screen_2_Pin GPIO_PIN_4
+#define dc_motor_screen_2_GPIO_Port GPIOA
+#define TIANKONGRC_11kg_1_Pin GPIO_PIN_6
+#define TIANKONGRC_11kg_1_GPIO_Port GPIOA
+#define Gobilda_300_torque_Pin GPIO_PIN_7
+#define Gobilda_300_torque_GPIO_Port GPIOA
+#define shoulder_dir_controller_Pin GPIO_PIN_10
+#define shoulder_dir_controller_GPIO_Port GPIOD
+#define elbow_dir_controller_Pin GPIO_PIN_11
+#define elbow_dir_controller_GPIO_Port GPIOD
+#define GobildaArm_Pin GPIO_PIN_12
+#define GobildaArm_GPIO_Port GPIOD
+#define elbow_limitswitch_pull_up_EXIT_Pin GPIO_PIN_2
+#define elbow_limitswitch_pull_up_EXIT_GPIO_Port GPIOG
+#define elbow_limitswitch_pull_up_EXIT_EXTI_IRQn EXTI2_IRQn
+#define Shoulder_limitswitch_pull_up_EXIT_Pin GPIO_PIN_3
+#define Shoulder_limitswitch_pull_up_EXIT_GPIO_Port GPIOG
+#define TIANKONGRC_11kg_2_Pin GPIO_PIN_8
+#define TIANKONGRC_11kg_2_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
 
