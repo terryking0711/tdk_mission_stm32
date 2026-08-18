@@ -40,6 +40,7 @@ CPP_DEPS :=
 SUBDIRS := \
 Core/Inc/uros \
 Core/Src \
+Core/Src/main_program/arm \
 Core/Src/main_program \
 Core/Src/main_program/mission_2 \
 Core/Startup \

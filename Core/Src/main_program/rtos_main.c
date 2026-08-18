@@ -10,7 +10,6 @@
 #include "stm32h7xx_hal.h"
 #include "uros_init.h"
 #include "servo_monitor.hpp"
-#include "dc_control.h"
 #include "servo_motor_config.h"
 #include "ms_2_monitor.h"
 #include "cmsis_os2.h"
@@ -32,7 +31,6 @@ void StartDefaultTask(void *argument)
 //	}
 	HAL_TIM_Base_Start_IT(&htim2);
 	servo_init();
-	// dc_motor_screen_init();
 	uros_init();
 	for (;;)
 	{
@@ -89,6 +87,14 @@ void StartTask02(void *argument)
 		case 10:
 			test_mission = 0;
 			MS_2_open_pink();
+			break;
+		case 11:
+			test_mission = 0;
+			pusher_extend();
+			break;
+		case 12:
+			test_mission = 0;
+			pusher_retract();
 			break;
 		default:
 			break;

@@ -55,7 +55,6 @@ extern "C"{
 
     };
 
-void screen_rotate();
 
 #ifdef __cplusplus
 }

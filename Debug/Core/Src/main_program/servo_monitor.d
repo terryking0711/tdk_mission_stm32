@@ -33,9 +33,9 @@ Core/Src/main_program/servo_monitor.o: \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h \
- ../Core/Inc/servo_monitor.hpp ../Core/Inc/dc_control.h \
- ../Core/Inc/servo_motor_config.h ../Core/Inc/dc_motor_config.h \
- ../Core/Inc/dc_driver_oop.hpp ../Core/Inc/stm32h7xx_it.h \
+ ../Core/Inc/servo_monitor.hpp ../Core/Inc/servo_motor_config.h \
+ ../Core/Inc/dc_motor_config.h ../Core/Inc/dc_driver_oop.hpp \
+ ../Core/Inc/stm32h7xx_it.h \
  /home/hsuanjung/STM32CubeIDE/tdk_mission/tdk_mission_stm32/Core/Src/main_program/mission_2/ms_2.hpp \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 ../Core/Inc/servo_oop.hpp:
@@ -73,7 +73,6 @@ Core/Src/main_program/servo_monitor.o: \
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h:
 ../Core/Inc/servo_monitor.hpp:
-../Core/Inc/dc_control.h:
 ../Core/Inc/servo_motor_config.h:
 ../Core/Inc/dc_motor_config.h:
 ../Core/Inc/dc_driver_oop.hpp:

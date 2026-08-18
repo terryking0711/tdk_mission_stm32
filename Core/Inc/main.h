@@ -59,27 +59,43 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define dc_motor_screen_1_Pin GPIO_PIN_1
-#define dc_motor_screen_1_GPIO_Port GPIOA
-#define dc_motor_screen_2_Pin GPIO_PIN_4
-#define dc_motor_screen_2_GPIO_Port GPIOA
-#define TIANKONGRC_11kg_1_Pin GPIO_PIN_6
-#define TIANKONGRC_11kg_1_GPIO_Port GPIOA
-#define Gobilda_300_torque_Pin GPIO_PIN_7
-#define Gobilda_300_torque_GPIO_Port GPIOA
-#define shoulder_dir_controller_Pin GPIO_PIN_10
-#define shoulder_dir_controller_GPIO_Port GPIOD
-#define elbow_dir_controller_Pin GPIO_PIN_11
-#define elbow_dir_controller_GPIO_Port GPIOD
-#define GobildaArm_Pin GPIO_PIN_12
-#define GobildaArm_GPIO_Port GPIOD
-#define elbow_limitswitch_pull_up_EXIT_Pin GPIO_PIN_2
-#define elbow_limitswitch_pull_up_EXIT_GPIO_Port GPIOG
-#define elbow_limitswitch_pull_up_EXIT_EXTI_IRQn EXTI2_IRQn
-#define Shoulder_limitswitch_pull_up_EXIT_Pin GPIO_PIN_3
-#define Shoulder_limitswitch_pull_up_EXIT_GPIO_Port GPIOG
-#define TIANKONGRC_11kg_2_Pin GPIO_PIN_8
-#define TIANKONGRC_11kg_2_GPIO_Port GPIOC
+#define servo_base_pwm_Pin GPIO_PIN_0
+#define servo_base_pwm_GPIO_Port GPIOA
+#define servo_rotate_pwm_Pin GPIO_PIN_1
+#define servo_rotate_pwm_GPIO_Port GPIOA
+#define servo_claw_pwm_Pin GPIO_PIN_2
+#define servo_claw_pwm_GPIO_Port GPIOA
+#define servo_wrist_pwm_Pin GPIO_PIN_3
+#define servo_wrist_pwm_GPIO_Port GPIOA
+#define screen_dc_motor_dir_Pin GPIO_PIN_4
+#define screen_dc_motor_dir_GPIO_Port GPIOA
+#define pwm_200_Pin GPIO_PIN_6
+#define pwm_200_GPIO_Port GPIOA
+#define pwm_201_Pin GPIO_PIN_7
+#define pwm_201_GPIO_Port GPIOA
+#define test_light_Pin GPIO_PIN_0
+#define test_light_GPIO_Port GPIOB
+#define pwm_203_Pin GPIO_PIN_1
+#define pwm_203_GPIO_Port GPIOB
+#define limit_switch_rotate_Pin GPIO_PIN_2
+#define limit_switch_rotate_GPIO_Port GPIOB
+#define limit_switch_rotate_EXTI_IRQn EXTI2_IRQn
+#define elbow_pwm_Pin GPIO_PIN_14
+#define elbow_pwm_GPIO_Port GPIOB
+#define shoulder_pwm_Pin GPIO_PIN_15
+#define shoulder_pwm_GPIO_Port GPIOB
+#define shoulder_dir_Pin GPIO_PIN_10
+#define shoulder_dir_GPIO_Port GPIOD
+#define elbow_dir_Pin GPIO_PIN_11
+#define elbow_dir_GPIO_Port GPIOD
+#define pwm_210_Pin GPIO_PIN_12
+#define pwm_210_GPIO_Port GPIOD
+#define shoulder_homing_switch_Pin GPIO_PIN_3
+#define shoulder_homing_switch_GPIO_Port GPIOG
+#define elbow_homing_switch_Pin GPIO_PIN_4
+#define elbow_homing_switch_GPIO_Port GPIOG
+#define pwm_202_Pin GPIO_PIN_8
+#define pwm_202_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
 

@@ -20,7 +20,7 @@ public:
     uint32_t pwm_channel;        // PWM 通道號碼 (TIM_CHANNEL_1, TIM_CHANNEL_2, ...)
     GPIO_TypeDef* dir_port;          // PWM 對應的 GPIO 設定
     uint16_t dir_pin1;           // PWM 對應的 GPIO 腳位
-    uint16_t dir_pin2;           // PWM 對應的 GPIO 腳位
+    uint16_t dir_pin2;           // PWM 對應的 GPIO 腳位-> After using a smaller dc motor driver board, it is useless now
 
              
 

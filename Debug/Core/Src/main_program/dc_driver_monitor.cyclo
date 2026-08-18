@@ -1,4 +1,0 @@
-../Core/Inc/dc_driver_oop.hpp:25:5:dc_driver::dc_driver(TIM_HandleTypeDef*, uint32_t, GPIO_TypeDef*, uint16_t, uint16_t, int)	1
-../Core/Src/main_program/dc_driver_monitor.cpp:20:6:void screen_dc_init()	1
-../Core/Src/main_program/dc_driver_monitor.cpp:22:1:void __static_initialization_and_destruction_0()	1
-../Core/Src/main_program/dc_driver_monitor.cpp:22:1:cpp)	1

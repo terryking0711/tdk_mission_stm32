@@ -5,11 +5,11 @@
 #include "encoder_dc.hpp"
 #include "pid.hpp"
 #include "limit_sw.hpp"
-extern TIM_HandleTypeDef htim4, htim23, htim12; 
+extern TIM_HandleTypeDef htim5, htim23, htim12; 
 Servo servo_base, servo_rotate, servo_claw, servo_wrist;
 Encoder elbow(5.0f, 0.0f, 0.0f, 3199.0f),
         shoulder(5.0f, 0.0f, 0.0f, 3199.0f);
-LimitSwitch elbow_homing_switch(GPIOG, GPIO_PIN_2); // 歸零用的微動開關
+LimitSwitch elbow_homing_switch(GPIOG, GPIO_PIN_4); // 歸零用的微動開關
 LimitSwitch shoulder_homing_switch(GPIOG, GPIO_PIN_3); // 歸零用的微動開關
 
 volatile bool is_homing_done[2] = {false, false}; // [0] for elbow, [1] for shoulder
@@ -19,26 +19,26 @@ float target_rpm = 3.0f;
 
 int arm_init(void)
 {
-	  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, 1500);
-	  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2, 1500);
-	  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, 1500);
-	  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 1500);
+	  __HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_1, 1500);
+	  __HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_2, 1500);
+	  __HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_3, 1500);
+	  __HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_4, 1500);
 
 	  //tim23 encoder
 	  HAL_TIM_Encoder_Start(&htim23, TIM_CHANNEL_ALL);
 	  // 強制啟動 TIM3 和 TIM4 的 PWM 輸出
-	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
-	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
-	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
-	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
+	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
+	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_2);
+	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_3);
+	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_4);
 
 	  HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
       
     
-    servo_base.attach(&htim4, TIM_CHANNEL_1, 6.6667f, 1500);
-    servo_rotate.attach(&htim4, TIM_CHANNEL_2, 6.6667f, 1500);
-    servo_claw.attach(&htim4, TIM_CHANNEL_3, 6.6667f, 1500);
-    servo_wrist.attach(&htim4, TIM_CHANNEL_4, 6.6667f, 1500);
+    servo_base.attach(&htim5, TIM_CHANNEL_1, 6.6667f, 1500);
+    servo_rotate.attach(&htim5, TIM_CHANNEL_2, 6.6667f, 1500);
+    servo_claw.attach(&htim5, TIM_CHANNEL_3, 6.6667f, 1500);
+    servo_wrist.attach(&htim5, TIM_CHANNEL_4, 6.6667f, 1500);
     elbow.attach(&htim23, 26400.0f, &htim12, TIM_CHANNEL_1, GPIOD, GPIO_PIN_11);
     shoulder.attach(&htim23, 26400.0f, &htim12, TIM_CHANNEL_2, GPIOD, GPIO_PIN_10);
     

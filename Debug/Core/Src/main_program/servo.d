@@ -1,6 +1,5 @@
-Core/Src/main_program/dc_driver_monitor.o: \
- ../Core/Src/main_program/dc_driver_monitor.cpp \
- ../Core/Inc/dc_driver_oop.hpp \
+Core/Src/main_program/servo.o: ../Core/Src/main_program/servo.cpp \
+ ../Core/Inc/servo.hpp \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -33,11 +32,8 @@ Core/Src/main_program/dc_driver_monitor.o: \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
- ../Core/Inc/stm32h7xx_it.h \
- ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- ../Core/Inc/dc_driver_monitor.hpp
-../Core/Inc/dc_driver_oop.hpp:
+ ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
+../Core/Inc/servo.hpp:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 ../Core/Inc/stm32h7xx_hal_conf.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:
@@ -70,7 +66,4 @@ Core/Src/main_program/dc_driver_monitor.o: \
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
-../Core/Inc/stm32h7xx_it.h:
-../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h723xx.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
-../Core/Inc/dc_driver_monitor.hpp:
