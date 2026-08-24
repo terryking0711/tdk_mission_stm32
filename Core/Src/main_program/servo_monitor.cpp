@@ -16,7 +16,6 @@
 
 extern TIM_HandleTypeDef htim3;
 extern volatile bool limsw;
-extern dc_driver screen;
 
 volatile uint8_t mission_delay_time = 100;
 volatile int target_speed = 400;
