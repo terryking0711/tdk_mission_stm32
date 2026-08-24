@@ -6,5 +6,6 @@
         "DC motror"
         "FreeRTOS & EXTI"
         "Servo OOP"
+        "merge"
     ]
 }

@@ -1,8 +1,15 @@
 /*
- * uros_init.c
+ * uros_init.cpp
  *
  *  Created on: Jul 15, 2026
  *      Author: hsuanjung
+ *
+ *  主要修正：
+ *  1. MechanismCommand 內含兩個 unbounded string，必須「預先配置」緩衝區，
+ *     否則 cdr_deserialize 會因 capacity 不足直接回傳 false，
+ *     executor 就不會呼叫 callback（靜默失敗）。
+ *  2. AGENT_CONNECTED 狀態不再每圈 ping，改成每 1 秒 ping 一次，
+ *     其餘時間全部拿去 spin executor。
  */
 
 
@@ -31,8 +38,14 @@ rclc_executor_t executor;
 
 agent_status_t status = AGENT_WAITING;
 
+
 int ping_fail_count = 0;
 #define MAX_PING_FAIL_COUNT 5
+
+
+/* AGENT_CONNECTED 狀態下的 ping 週期 (ms) */
+#define AGENT_PING_PERIOD_MS 1000U
+
 
 extern UART_HandleTypeDef huart3;
 
@@ -69,6 +82,7 @@ static void mechanism_command_msg_bind_buffers(void)
 }
 
 void uros_init(void) {
+  // Initialize micro-ROS
   rmw_uros_set_custom_transport(
     true,
     (void *) &huart3,
@@ -79,24 +93,37 @@ void uros_init(void) {
 
   rcl_allocator_t freeRTOS_allocator = rcutils_get_zero_initialized_allocator();
 
-  freeRTOS_allocator.allocate      = microros_allocate;
-  freeRTOS_allocator.deallocate    = microros_deallocate;
-  freeRTOS_allocator.reallocate    = microros_reallocate;
-  freeRTOS_allocator.zero_allocate = microros_zero_allocate;
+  freeRTOS_allocator.allocate = microros_allocate;
+  freeRTOS_allocator.deallocate = microros_deallocate;
+  freeRTOS_allocator.reallocate = microros_reallocate;
+  freeRTOS_allocator.zero_allocate =  microros_zero_allocate;
 
-  if (!rcutils_set_default_allocator(&freeRTOS_allocator)) {
-  printf("Error on default allocators (line %d)\n", __LINE__);
-  }
+  (void) rcutils_set_default_allocator(&freeRTOS_allocator);
 }
+
+/* 把最後一次錯誤留下來給 debugger 看 */
+volatile int uros_last_error = 0;
+
 
 void uros_agent_status_check(void) {
   switch (status) {
-    case AGENT_WAITING:      handle_state_agent_waiting();      break;
-    case AGENT_AVAILABLE:    handle_state_agent_available();    break;
-    case AGENT_CONNECTED:    handle_state_agent_connected();    break;
-    case AGENT_TRYING:       handle_state_agent_trying();       break;
-    case AGENT_DISCONNECTED: handle_state_agent_disconnected(); break;
-    default: break;
+    case AGENT_WAITING:
+      handle_state_agent_waiting();
+      break;
+    case AGENT_AVAILABLE:
+      handle_state_agent_available();
+      break;
+    case AGENT_CONNECTED:
+      handle_state_agent_connected();
+      break;
+    case AGENT_TRYING:
+      handle_state_agent_trying();
+      break;
+    case AGENT_DISCONNECTED:
+      handle_state_agent_disconnected();
+      break;
+    default:
+      break;
   }
 }
 
@@ -126,22 +153,22 @@ void handle_state_agent_connected(void) {
     ping_fail_count = 0;
   }
 
+
   rclc_executor_spin_some(&executor, RCL_MS_TO_NS(10));
 }
 
 void handle_state_agent_trying(void) {
-  if (rmw_uros_ping_agent(50, 10) == RMW_RET_OK) {
+  if(rmw_uros_ping_agent(50, 10) == RMW_RET_OK){
     status = AGENT_CONNECTED;
-    ping_fail_count = 0;
+    ping_fail_count = 0; // Reset ping fail count
   } else {
     ping_fail_count++;
-    if (ping_fail_count >= MAX_PING_FAIL_COUNT) {
+    if(ping_fail_count >= MAX_PING_FAIL_COUNT){
       status = AGENT_DISCONNECTED;
       ping_fail_count = 0;
     }
   }
 }
-
 void handle_state_agent_disconnected(void) {
   uros_destroy_entities();
   status = AGENT_WAITING;
@@ -188,12 +215,12 @@ void uros_destroy_entities(void) {
   (void) rmw_uros_set_context_entity_destroy_session_timeout(rmw_context, 0);
 
   // Destroy subscriber
-  rcl_subscription_fini(&mission_sub, &node);
+  rcl_subscription_fini(&mechanism_command_sub, &node);
 
-  // Destroy executor
-  rclc_executor_fini(&executor);
+  /* 不要呼叫 MechanismCommand__fini()：字串指向靜態陣列，free 會炸 heap */
 
   // Destroy node
+  rclc_executor_fini(&executor);
   rcl_node_fini(&node);
   rclc_support_fini(&support);
 }

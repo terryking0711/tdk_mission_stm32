@@ -12,8 +12,6 @@
 extern "C"{
 #endif
 
-#include "dc_control.h"
-
 void servo_init();
 void pusher_extend();
 void pusher_retract();
