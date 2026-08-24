@@ -51,53 +51,58 @@ void StartTask02(void *argument)
 		// /mechanism/command 觸發的機構動作 (command_id 由 mechanism_command_cb 更新)
 		switch (mechanism_command_id)
 		{
-		case 1:// Test Light
-			mechanism_command_id = 0;
-			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-			osDelay(1000);
-			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-			break;
-		case 2:
+		// case 1: // Test Light
+		// 	mechanism_command_id = 0;
+		// 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+		// 	osDelay(1000);
+		// 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+		// 	break;
+
+		case 0:	// initialize and set motor mid
 			mechanism_command_id = 0;
 			MS_2_init();
 			break;
-		case 3:
+		case 201:	// 順時針 down 
 			mechanism_command_id = 0;
 			MS_2_CW_down();
 			break;
-		case 4:
-			mechanism_command_id = 0;
-			MS_2_CCW_down();
-			break;
-		case 5:
+		// case 4:
+		// 	mechanism_command_id = 0;
+		// 	MS_2_CCW_down();
+		// 	break;
+		case 202:	// 順時針 rotate
 			mechanism_command_id = 0;
 			MS_2_CW_rotate();
 			break;
-		case 6:
-			mechanism_command_id = 0;
-			MS_2_CCW_rotate();
-			break;
-		case 7:
+		// case 6:
+		// 	mechanism_command_id = 0;
+		// 	MS_2_CCW_rotate();
+		// 	break;
+		case 203:	// servo 咬住 box
 			mechanism_command_id = 0;
 			MS_2_close_blue();
 			break;
-		case 8:
-			mechanism_command_id = 0;
-			MS_2_close_pink();
-			break;
-		case 9:
+		// case 8:	// servo 咬住 box 鏡像
+		// 	mechanism_command_id = 0;
+		// 	MS_2_close_pink();
+		// 	break;
+		case 204: // servo 放開 box
 			mechanism_command_id = 0;
 			MS_2_open_blue();
 			break;
-		case 10:
+		// case 10: // servo 放開 box 鏡像
+		// 	mechanism_command_id = 0;
+		// 	MS_2_open_pink();
+		// 	break;
+		case 205:
 			mechanism_command_id = 0;
-			MS_2_open_pink();
+			MS_2_middle();
 			break;
-		case 11:
+		case 206: // pusher extend
 			mechanism_command_id = 0;
 			pusher_extend();
 			break;
-		case 12:
+		case 207:
 			mechanism_command_id = 0;
 			pusher_retract();
 			break;

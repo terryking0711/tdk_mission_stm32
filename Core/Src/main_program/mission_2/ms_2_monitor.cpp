@@ -37,6 +37,10 @@ void MS_2_CCW_rotate(){
     MS_2.rotate_ccw();
 }
 
+void MS_2_middle(){
+    MS_2.middle();
+}
+
 void MS_2_open_pink(){
     MS_2.open_pink();
 }
