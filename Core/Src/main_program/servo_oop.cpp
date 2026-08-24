@@ -12,7 +12,7 @@
 
 void servo::initial_servo(){
     HAL_TIM_PWM_Start( _pwm, _channel);
-    __HAL_TIM_SET_COMPARE( _pwm, _channel, _min_pwm + _per * _prepare_angle);
+    __HAL_TIM_SET_COMPARE( _pwm, _channel, (uint32_t)(_min_pwm + _per * _prepare_angle));
 }
 
 void servo::set_angle(bool dir)
@@ -21,13 +21,13 @@ void servo::set_angle(bool dir)
     {
         _delta = _target_angle - _initial_angle;
         _unit = _delta / _period;
-        _current_angle = _initial_angle + _unit;
+        _current_angle = _initial_angle;
     }
     else
     {
         _delta = _initial_angle - _target_angle;
         _unit = _delta / _period;
-        _current_angle = _target_angle + _unit;
+        _current_angle = _target_angle;
     }
 
     for (int i = 0; i < _period; i++)
@@ -35,7 +35,7 @@ void servo::set_angle(bool dir)
         _pulse = _min_pwm + (_current_angle * _per);
         if (_pulse > _max_pwm)
             _pulse = _max_pwm;
-        __HAL_TIM_SET_COMPARE(_pwm, _channel, _pulse);
+        __HAL_TIM_SET_COMPARE(_pwm, _channel, (uint32_t)_pulse);
         osDelay(1);
         _current_angle += _unit;
     }

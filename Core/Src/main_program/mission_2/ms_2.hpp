@@ -30,6 +30,8 @@ extern "C"{
         void rotate_cw();
         void rotate_ccw();
 
+        void middle();
+
         void open_pink();
         void open_blue();
 
@@ -42,6 +44,7 @@ extern "C"{
         servo blue;
 
         enum class pos_ms2{
+            middle,
             down_cw,
             down_ccw,
             error

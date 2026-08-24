@@ -49,6 +49,7 @@ TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim12;
 TIM_HandleTypeDef htim23;
+TIM_HandleTypeDef htim24;
 
 UART_HandleTypeDef huart3;
 DMA_HandleTypeDef hdma_usart3_rx;
@@ -89,6 +90,7 @@ static void MX_TIM4_Init(void);
 static void MX_TIM5_Init(void);
 static void MX_TIM12_Init(void);
 static void MX_TIM23_Init(void);
+static void MX_TIM24_Init(void);
 void StartDefaultTask(void *argument);
 void StartTask02(void *argument);
 
@@ -141,6 +143,7 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM12_Init();
   MX_TIM23_Init();
+  MX_TIM24_Init();
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
 
@@ -336,12 +339,11 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
-  sConfigOC.Pulse = 843;
+  sConfigOC.Pulse = 0;
   if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
   {
     Error_Handler();
   }
-  sConfigOC.Pulse = 0;
   if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
@@ -566,6 +568,55 @@ static void MX_TIM23_Init(void)
 }
 
 /**
+  * @brief TIM24 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM24_Init(void)
+{
+
+  /* USER CODE BEGIN TIM24_Init 0 */
+
+  /* USER CODE END TIM24_Init 0 */
+
+  TIM_Encoder_InitTypeDef sConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM24_Init 1 */
+
+  /* USER CODE END TIM24_Init 1 */
+  htim24.Instance = TIM24;
+  htim24.Init.Prescaler = 0;
+  htim24.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim24.Init.Period = 4294967295;
+  htim24.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim24.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
+  sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
+  sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
+  sConfig.IC1Filter = 0;
+  sConfig.IC2Polarity = TIM_ICPOLARITY_RISING;
+  sConfig.IC2Selection = TIM_ICSELECTION_DIRECTTI;
+  sConfig.IC2Prescaler = TIM_ICPSC_DIV1;
+  sConfig.IC2Filter = 0;
+  if (HAL_TIM_Encoder_Init(&htim24, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim24, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM24_Init 2 */
+
+  /* USER CODE END TIM24_Init 2 */
+
+}
+
+/**
   * @brief USART3 Initialization Function
   * @param None
   * @retval None
@@ -678,7 +729,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : limit_switch_rotate_Pin */
   GPIO_InitStruct.Pin = limit_switch_rotate_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(limit_switch_rotate_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : shoulder_dir_Pin elbow_dir_Pin */
@@ -690,13 +741,19 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : shoulder_homing_switch_Pin elbow_homing_switch_Pin */
   GPIO_InitStruct.Pin = shoulder_homing_switch_Pin|elbow_homing_switch_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(limit_switch_rotate_EXTI_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(limit_switch_rotate_EXTI_IRQn);
+
+  HAL_NVIC_SetPriority(shoulder_homing_switch_EXTI_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(shoulder_homing_switch_EXTI_IRQn);
+
+  HAL_NVIC_SetPriority(elbow_homing_switch_EXTI_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(elbow_homing_switch_EXTI_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 

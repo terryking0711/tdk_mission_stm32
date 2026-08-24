@@ -10,6 +10,7 @@
 #include "stm32h7xx_hal.h"
 #include "uros_init.h"
 #include "servo_monitor.hpp"
+#include "arm_test.hpp"
 #include "servo_motor_config.h"
 #include "ms_2_monitor.h"
 #include "cmsis_os2.h"
@@ -32,6 +33,7 @@ void StartDefaultTask(void *argument)
 //	}
 	HAL_TIM_Base_Start_IT(&htim2);
 	servo_init();
+	cpp_arm_init();
 	uros_init();
 	for (;;)
 	{
@@ -113,5 +115,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if (HAL_GPIO_ReadPin(GPIOB, GPIO_Pin) == GPIO_PIN_SET)
 	{
 		limsw = true;
+	}
+
+	if (HAL_GPIO_ReadPin(GPIOG, GPIO_Pin) == GPIO_PIN_SET)
+	{
 	}
 }

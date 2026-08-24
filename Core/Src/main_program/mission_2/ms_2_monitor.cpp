@@ -13,7 +13,7 @@
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 
-ms_2 MS_2(GPIOA, GPIO_PIN_4, &htim4, TIM_CHANNEL_1, 10, Speed_210, &htim3, TIM_CHANNEL_3, 93, 93, 180, 7.3, 500, 2500, &htim3, TIM_CHANNEL_4, 175, 175, 88, 7.3, 500, 2500);
+ms_2 MS_2(GPIOA, GPIO_PIN_4, &htim4, TIM_CHANNEL_1, 10, Speed_210, &htim3, TIM_CHANNEL_3, 80, 80, 193, 7.3, 500, 2500, &htim3, TIM_CHANNEL_4, 198, 198, 75, 7.3, 500, 2500);
 
 extern "C" {
 

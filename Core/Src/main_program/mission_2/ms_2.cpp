@@ -26,10 +26,14 @@ void ms_2::init(){
     motor.cw();
     osDelay(init_reverse_time);
     motor.stop();
+    POS_ms2 = pos_ms2::middle;
 }
 
 void ms_2::down_cw()
 {
+    if (POS_ms2 == pos_ms2::error)
+        return;
+
     if (POS_ms2 == pos_ms2::down_cw)
         return;
 
@@ -55,6 +59,9 @@ void ms_2::down_cw()
 
 void ms_2::down_ccw()
 {
+    if (POS_ms2 == pos_ms2::error)
+        return;
+
     if (POS_ms2 == pos_ms2::down_ccw)
         return;
 
@@ -80,20 +87,47 @@ void ms_2::down_ccw()
 
 void ms_2::rotate_cw()
 {
+    if (POS_ms2 == pos_ms2::error)
+        return;
+
     if( POS_ms2 == pos_ms2::down_cw )return;
 
     motor.cw();
     osDelay(rotate_time);
     motor.stop();
+    POS_ms2 = pos_ms2::middle;
 }
 
 void ms_2::rotate_ccw()
 {
+    if (POS_ms2 == pos_ms2::error)
+        return;
+
     if( POS_ms2 == pos_ms2::down_ccw )return;
 
     motor.ccw();
     osDelay(rotate_time);
     motor.stop();
+    POS_ms2 = pos_ms2::middle;
+}
+
+void ms_2::middle(){    
+    if (POS_ms2 == pos_ms2::error)
+        return;
+    
+    if( POS_ms2 == pos_ms2::down_cw ){
+        motor.ccw();
+        osDelay(init_reverse_time);
+    }
+    else if( POS_ms2 == pos_ms2::down_ccw ){
+        motor.cw();
+        osDelay(init_reverse_time);
+    }else{
+        return;
+    }
+
+    motor.stop();
+    POS_ms2 = pos_ms2::middle;
 }
 
 void ms_2::wait_limit_switch()

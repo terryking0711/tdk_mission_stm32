@@ -186,7 +186,7 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef* htim_encoder)
     PF0     ------> TIM23_CH1
     PF1     ------> TIM23_CH2
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+    GPIO_InitStruct.Pin = elbow_enc1_Pin|elbow_enc2_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -196,7 +196,30 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef* htim_encoder)
     /* USER CODE BEGIN TIM23_MspInit 1 */
 
     /* USER CODE END TIM23_MspInit 1 */
+  }
+  else if(htim_encoder->Instance==TIM24)
+  {
+    /* USER CODE BEGIN TIM24_MspInit 0 */
 
+    /* USER CODE END TIM24_MspInit 0 */
+    /* Peripheral clock enable */
+    __HAL_RCC_TIM24_CLK_ENABLE();
+
+    __HAL_RCC_GPIOF_CLK_ENABLE();
+    /**TIM24 GPIO Configuration
+    PF11     ------> TIM24_CH1
+    PF12     ------> TIM24_CH2
+    */
+    GPIO_InitStruct.Pin = shoulder_enc1_Pin|shoulder_enc2_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.Alternate = GPIO_AF14_TIM24;
+    HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+
+    /* USER CODE BEGIN TIM24_MspInit 1 */
+
+    /* USER CODE END TIM24_MspInit 1 */
   }
 
 }
@@ -412,11 +435,29 @@ void HAL_TIM_Encoder_MspDeInit(TIM_HandleTypeDef* htim_encoder)
     PF0     ------> TIM23_CH1
     PF1     ------> TIM23_CH2
     */
-    HAL_GPIO_DeInit(GPIOF, GPIO_PIN_0|GPIO_PIN_1);
+    HAL_GPIO_DeInit(GPIOF, elbow_enc1_Pin|elbow_enc2_Pin);
 
     /* USER CODE BEGIN TIM23_MspDeInit 1 */
 
     /* USER CODE END TIM23_MspDeInit 1 */
+  }
+  else if(htim_encoder->Instance==TIM24)
+  {
+    /* USER CODE BEGIN TIM24_MspDeInit 0 */
+
+    /* USER CODE END TIM24_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_TIM24_CLK_DISABLE();
+
+    /**TIM24 GPIO Configuration
+    PF11     ------> TIM24_CH1
+    PF12     ------> TIM24_CH2
+    */
+    HAL_GPIO_DeInit(GPIOF, shoulder_enc1_Pin|shoulder_enc2_Pin);
+
+    /* USER CODE BEGIN TIM24_MspDeInit 1 */
+
+    /* USER CODE END TIM24_MspDeInit 1 */
   }
 
 }
