@@ -10,7 +10,7 @@
 
 #define init_reverse_distance 1080000
 #define down_reverse_distance 40000
-#define rotate_distance 1200000
+#define rotate_distance 2700000
 
 #define Speed_210 400
 

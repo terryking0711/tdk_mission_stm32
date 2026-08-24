@@ -5,7 +5,7 @@
 #include "encoder_dc.hpp"
 #include "pid.hpp"
 #include "limit_sw.hpp"
-extern TIM_HandleTypeDef htim5, htim23, htim12; 
+extern TIM_HandleTypeDef htim5, htim23, htim12, htim24; 
 Servo servo_base, servo_rotate, servo_claw, servo_wrist;
 Encoder elbow(5.0f, 0.0f, 0.0f, 3199.0f),
         shoulder(5.0f, 0.0f, 0.0f, 3199.0f);
@@ -40,7 +40,7 @@ int arm_init(void)
     servo_claw.attach(&htim5, TIM_CHANNEL_3, 6.6667f, 1500);
     servo_wrist.attach(&htim5, TIM_CHANNEL_4, 6.6667f, 1500);
     elbow.attach(&htim23, 26400.0f, &htim12, TIM_CHANNEL_1, GPIOD, GPIO_PIN_11);
-    shoulder.attach(&htim23, 26400.0f, &htim12, TIM_CHANNEL_2, GPIOD, GPIO_PIN_10);
+    shoulder.attach(&htim24, 26400.0f, &htim12, TIM_CHANNEL_2, GPIOD, GPIO_PIN_10);
     
 
     return 0;

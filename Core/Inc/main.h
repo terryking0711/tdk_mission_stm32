@@ -59,6 +59,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define elbow_enc1_Pin GPIO_PIN_0
+#define elbow_enc1_GPIO_Port GPIOF
+#define elbow_enc2_Pin GPIO_PIN_1
+#define elbow_enc2_GPIO_Port GPIOF
 #define servo_base_pwm_Pin GPIO_PIN_0
 #define servo_base_pwm_GPIO_Port GPIOA
 #define servo_rotate_pwm_Pin GPIO_PIN_1
@@ -80,6 +84,10 @@ void Error_Handler(void);
 #define limit_switch_rotate_Pin GPIO_PIN_2
 #define limit_switch_rotate_GPIO_Port GPIOB
 #define limit_switch_rotate_EXTI_IRQn EXTI2_IRQn
+#define shoulder_enc1_Pin GPIO_PIN_11
+#define shoulder_enc1_GPIO_Port GPIOF
+#define shoulder_enc2_Pin GPIO_PIN_12
+#define shoulder_enc2_GPIO_Port GPIOF
 #define elbow_pwm_Pin GPIO_PIN_14
 #define elbow_pwm_GPIO_Port GPIOB
 #define shoulder_pwm_Pin GPIO_PIN_15
@@ -92,8 +100,10 @@ void Error_Handler(void);
 #define pwm_210_GPIO_Port GPIOD
 #define shoulder_homing_switch_Pin GPIO_PIN_3
 #define shoulder_homing_switch_GPIO_Port GPIOG
+#define shoulder_homing_switch_EXTI_IRQn EXTI3_IRQn
 #define elbow_homing_switch_Pin GPIO_PIN_4
 #define elbow_homing_switch_GPIO_Port GPIOG
+#define elbow_homing_switch_EXTI_IRQn EXTI4_IRQn
 #define pwm_202_Pin GPIO_PIN_8
 #define pwm_202_GPIO_Port GPIOC
 

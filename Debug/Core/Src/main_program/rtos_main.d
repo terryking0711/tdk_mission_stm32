@@ -198,7 +198,8 @@ Core/Src/main_program/rtos_main.o: ../Core/Src/main_program/rtos_main.c \
  /home/hsuanjung/STM32CubeIDE/tdk_mission/tdk_mission_stm32/Core/Inc/uros/uros_config.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
- ../Core/Inc/servo_monitor.hpp ../Core/Inc/servo_motor_config.h \
+ ../Core/Inc/servo_monitor.hpp ../Core/Inc/arm_test.hpp \
+ ../Core/Inc/servo_motor_config.h \
  /home/hsuanjung/STM32CubeIDE/tdk_mission/tdk_mission_stm32/Core/Src/main_program/mission_2/ms_2_monitor.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
@@ -401,6 +402,7 @@ Core/Src/main_program/rtos_main.o: ../Core/Src/main_program/rtos_main.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
 ../Core/Inc/servo_monitor.hpp:
+../Core/Inc/arm_test.hpp:
 ../Core/Inc/servo_motor_config.h:
 /home/hsuanjung/STM32CubeIDE/tdk_mission/tdk_mission_stm32/Core/Src/main_program/mission_2/ms_2_monitor.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
