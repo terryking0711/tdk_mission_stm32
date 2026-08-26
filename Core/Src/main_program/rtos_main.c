@@ -51,61 +51,61 @@ void StartTask02(void *argument)
 		// /mechanism/command 觸發的機構動作 (command_id 由 mechanism_command_cb 更新)
 		switch (mechanism_command_id)
 		{
-		// case 1: // Test Light
-		// 	mechanism_command_id = 0;
-		// 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-		// 	osDelay(1000);
-		// 	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
-		// 	break;
-
-		case 0:	// initialize and set motor mid
+		case 2000:	// initialize and set motor mid
 			mechanism_command_id = 0;
 			MS_2_init();
 			break;
-		case 201:	// 順時針 down 
+		case 2001:	// 順時針 down
 			mechanism_command_id = 0;
 			MS_2_CW_down();
 			break;
-		// case 4:
-		// 	mechanism_command_id = 0;
-		// 	MS_2_CCW_down();
-		// 	break;
-		case 202:	// 順時針 rotate
+		case 204:	// 順時針 rotate
 			mechanism_command_id = 0;
 			MS_2_CW_rotate();
 			break;
-		// case 6:
-		// 	mechanism_command_id = 0;
-		// 	MS_2_CCW_rotate();
-		// 	break;
+		 case 205:	// 翻回去
+		 	mechanism_command_id = 0;
+		 	MS_2_CCW_rotate();
+		 	break;
 		case 203:	// servo 咬住 box
 			mechanism_command_id = 0;
 			MS_2_close_blue();
 			break;
-		// case 8:	// servo 咬住 box 鏡像
-		// 	mechanism_command_id = 0;
-		// 	MS_2_close_pink();
-		// 	break;
-		case 204: // servo 放開 box
+		case 206: // servo 放開 box
 			mechanism_command_id = 0;
 			MS_2_open_blue();
 			break;
-		// case 10: // servo 放開 box 鏡像
-		// 	mechanism_command_id = 0;
-		// 	MS_2_open_pink();
-		// 	break;
-		case 205:
+
+		case 207: //
 			mechanism_command_id = 0;
 			MS_2_middle();
 			break;
-		case 206: // pusher extend
+		case 201: // pusher extend
 			mechanism_command_id = 0;
 			pusher_extend();
 			break;
-		case 207:
+		case 202:
 			mechanism_command_id = 0;
 			pusher_retract();
 			break;
+
+//		 case 10: // servo 放開 box 鏡像
+//				mechanism_command_id = 0;
+//				MS_2_open_pink();
+//				break;
+//		 case 4:
+//			mechanism_command_id = 0;
+//			MS_2_CCW_down();
+//			break;
+//		 case 6:
+//				 	mechanism_command_id = 0;
+//				 	MS_2_CCW_rotate();
+//				 	break;
+//		 case 8:	// servo 咬住 box 鏡像
+//		 	mechanism_command_id = 0;
+//		 	MS_2_close_pink();
+//		 	break;
+
 		default:
 			break;
 		}

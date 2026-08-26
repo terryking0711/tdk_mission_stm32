@@ -21,8 +21,8 @@ volatile uint8_t mission_delay_time = 100;
 volatile int target_speed = 400;
 
 //                pwm      channel     prepare_angle   initial_angle   target_angle   period   per   min_pwm   max_pwm
-servo servo_2_1(&htim3, TIM_CHANNEL_1,     19,              19,            188,        500,    7.3 ,   500,     2500);
-servo servo_2_2(&htim3, TIM_CHANNEL_2,     42,              42,            135,        500,    6.65,   500,     2500);
+servo servo_2_1(&htim3, TIM_CHANNEL_1,     19,              19,            190,        1500,    7.3 ,   500,     2500);
+servo servo_2_2(&htim3, TIM_CHANNEL_2,     42,              42,            135,        1500,    6.65,   500,     2500);
 
 void servo_init(){
     servo_2_1.initial_servo();
@@ -36,7 +36,7 @@ void pusher_extend(){
 }
 
 void pusher_retract(){
-    servo_2_2.set_angle(0);
-    osDelay(500);
     servo_2_1.set_angle(0);
+    osDelay(500);
+    servo_2_2.set_angle(0);
 }
