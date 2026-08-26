@@ -100,10 +100,8 @@ void Error_Handler(void);
 #define pwm_210_GPIO_Port GPIOD
 #define shoulder_homing_switch_Pin GPIO_PIN_3
 #define shoulder_homing_switch_GPIO_Port GPIOG
-#define shoulder_homing_switch_EXTI_IRQn EXTI3_IRQn
 #define elbow_homing_switch_Pin GPIO_PIN_4
 #define elbow_homing_switch_GPIO_Port GPIOG
-#define elbow_homing_switch_EXTI_IRQn EXTI4_IRQn
 #define pwm_202_Pin GPIO_PIN_8
 #define pwm_202_GPIO_Port GPIOC
 

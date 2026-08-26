@@ -17,26 +17,37 @@ void servo::initial_servo(){
 
 void servo::set_angle(bool dir)
 {
+
     if (dir)
     {
         _delta = _target_angle - _initial_angle;
         _unit = _delta / _period;
         _current_angle = _initial_angle;
+
+        int32_t start_pulse = _min_pwm + (_initial_angle * _per);
+        int32_t target_pulse = _min_pwm + (_target_angle * _per);
+
+        for( int i = 1 ; i <= _period ; i ++ ){
+            _pulse = start_pulse + (i * (target_pulse - start_pulse) / _period);
+            __HAL_TIM_SET_COMPARE(_pwm, _channel, (uint32_t)_pulse);
+            osDelay(1);
+        }
+        _current_angle = _target_angle;
     }
     else
     {
         _delta = _initial_angle - _target_angle;
         _unit = _delta / _period;
         _current_angle = _target_angle;
-    }
 
-    for (int i = 0; i < _period; i++)
-    {
-        _pulse = _min_pwm + (_current_angle * _per);
-        if (_pulse > _max_pwm)
-            _pulse = _max_pwm;
-        __HAL_TIM_SET_COMPARE(_pwm, _channel, (uint32_t)_pulse);
-        osDelay(1);
-        _current_angle += _unit;
+        int32_t start_pulse = _min_pwm + (_target_angle * _per);
+        int32_t target_pulse = _min_pwm + (_initial_angle * _per);
+
+        for( int i = 1 ; i <= _period ; i ++ ){
+            _pulse = start_pulse + (i * (target_pulse - start_pulse) / _period);
+            __HAL_TIM_SET_COMPARE(_pwm, _channel, (uint32_t)_pulse);
+            osDelay(1);
+        }
+        _current_angle = _initial_angle;
     }
 }

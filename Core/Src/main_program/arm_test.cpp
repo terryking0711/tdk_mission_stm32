@@ -19,29 +19,17 @@ float target_rpm = 3.0f;
 
 int arm_init(void)
 {
-	  __HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_1, 1500);
-	  __HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_2, 1500);
-	  __HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_3, 1500);
-	  __HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_4, 1500);
+    HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
+    HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_2);
+    HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_3);
+    HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_4);
 
-	  //tim23 encoder
-	  HAL_TIM_Encoder_Start(&htim23, TIM_CHANNEL_ALL);
-	  // 強制啟動 TIM3 和 TIM4 的 PWM 輸出
-	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
-	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_2);
-	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_3);
-	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_4);
-
-	  HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
-      
-    
     servo_base.attach(&htim5, TIM_CHANNEL_1, 6.6667f, 1500);
     servo_rotate.attach(&htim5, TIM_CHANNEL_2, 6.6667f, 1500);
     servo_claw.attach(&htim5, TIM_CHANNEL_3, 6.6667f, 1500);
-    servo_wrist.attach(&htim5, TIM_CHANNEL_4, 6.6667f, 1500);
+    servo_wrist.attach(&htim5, TIM_CHANNEL_4, 7.3f, 600);
     elbow.attach(&htim23, 26400.0f, &htim12, TIM_CHANNEL_1, GPIOD, GPIO_PIN_11);
     shoulder.attach(&htim24, 26400.0f, &htim12, TIM_CHANNEL_2, GPIOD, GPIO_PIN_10);
-    
 
     return 0;
 }
@@ -74,16 +62,16 @@ void homing()
 int arm_test(void)
 {
     homing();
-    osDelay(1000);
+    // osDelay(1000);
 
-    servo_base.setTargetAfter(1000, 10.0f, 2000.0f);
-    servo_rotate.setTargetAfter(1200, 7.0f, 1000.0f);
+    // servo_wrist.setTargetAfter(1000, 54.8f, 2000.0f);
+    // servo_rotate.setTargetAfter(1000, 60.0f, 2000.0f);
 
     //servo_rotate.setTargetAfter(2000, 120.0f, 1000.0f);
     //servo_claw.setTargetAfter(8000, 30.0f, 1000.0f);
 
-    shoulder.reset();
-    elbow.setTargetAngleAfter(5000, 90.0f, 2000);
+    // shoulder.reset();
+    // elbow.setTargetAngleAfter(5000, 90.0f, 2000);
 
 
 

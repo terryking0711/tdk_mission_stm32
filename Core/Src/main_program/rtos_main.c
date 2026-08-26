@@ -21,7 +21,10 @@ volatile int test_mission = 0, angle = 47;
 volatile bool limsw = false;
 volatile bool Prepared = false;
 
+volatile test_angle_1 = 90, test_angle_2 = 90;
+
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 
 void StartDefaultTask(void *argument)
@@ -46,6 +49,12 @@ void StartTask02(void *argument)
 	for (;;)
 	{
 		task02++;
+
+		// HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_1);
+		// HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2);
+		// __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, (uint32_t)( 500 + 6.67 * test_angle_1 ));
+		// __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)( 500 + 6.67 * test_angle_2 ));
+
 		switch (test_mission)
 		{
 		case 1:// Test Light
@@ -98,6 +107,18 @@ void StartTask02(void *argument)
 			test_mission = 0;
 			pusher_retract();
 			break;
+		case 13:
+			test_mission = 0;
+			cpp_arm_test();
+			break;
+		case 14:
+			test_mission = 0;
+			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)(500 + 6.67 * 215));
+			break;
+		case 15:
+			test_mission = 0;
+			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)(500 + 6.67 * 135));
+			break;
 		default:
 			break;
 		}
@@ -128,6 +149,13 @@ void StartTask02(void *argument)
 		// 	osDelay(1);
 		// }
 	osDelay(1);
+	}
+}
+
+void StartTask03(void *argument){
+	for(;;){
+		cpp_arm_update();
+		osDelay(10);
 	}
 }
 
