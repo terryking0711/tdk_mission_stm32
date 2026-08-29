@@ -17,7 +17,7 @@
 #include <stdbool.h>
 
 int task_remain = 0, task02 = 0;
-volatile int test_mission = 0, angle = 47;
+volatile int mechanism_command_id = 0, angle = 47;
 volatile bool limsw = false;
 volatile bool Prepared = false;
 
@@ -29,10 +29,6 @@ extern TIM_HandleTypeDef htim4;
 
 void StartDefaultTask(void *argument)
 {
-//	while (!Prepared)
-//	{
-//		osDelay(1);
-//	}
 	HAL_TIM_Base_Start_IT(&htim2);
 	servo_init();
 	cpp_arm_init();
@@ -49,74 +45,72 @@ void StartTask02(void *argument)
 	for (;;)
 	{
 		task02++;
-
-		// HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_1);
-		// HAL_TIM_PWM_Start( &htim3, TIM_CHANNEL_2);
-		// __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, (uint32_t)( 500 + 6.67 * test_angle_1 ));
-		// __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)( 500 + 6.67 * test_angle_2 ));
-
-		switch (test_mission)
+		switch (mechanism_command_id)
 		{
 		case 1:// Test Light
-			test_mission = 0;	
+			mechanism_command_id = 0;	
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 			osDelay(1000);
 			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
 			break;
-		case 2:
-			test_mission = 0;
+		case 2000:
+			mechanism_command_id = 0;
 			MS_2_init();
 			break;
-		case 3:
-			test_mission = 0;
+		case 205:
+			mechanism_command_id = 0;
 			MS_2_CW_down();
 			break;
-		case 4:
-			test_mission = 0;
+		case 2001:
+			mechanism_command_id = 0;
 			MS_2_CCW_down();
 			break;
-		case 5:
-			test_mission = 0;
+		case 204:
+			mechanism_command_id = 0;
 			MS_2_CW_rotate();
 			break;
 		case 6:
-			test_mission = 0;
+			mechanism_command_id = 0;
 			MS_2_CCW_rotate();
 			break;
-		case 7:
-			test_mission = 0;
+		case 207:
+			mechanism_command_id = 0;
+			MS_2_middle();
+			break;
+		case 203:
+			mechanism_command_id = 0;
 			MS_2_close_blue();
 			break;
 		case 8:
-			test_mission = 0;
+			mechanism_command_id = 0;
 			MS_2_close_pink();
 			break;
-		case 9:
-			test_mission = 0;
+		case 206:
+			mechanism_command_id = 0;
 			MS_2_open_blue();
 			break;
 		case 10:
-			test_mission = 0;
+			mechanism_command_id = 0;
 			MS_2_open_pink();
 			break;
-		case 11:
-			test_mission = 0;
+		case 201:
+			mechanism_command_id = 0;
 			pusher_extend();
 			break;
-		case 12:
-			test_mission = 0;
+		case 202:
+			mechanism_command_id = 0;
 			pusher_retract();
 			break;
 		case 13:
-			test_mission = 0;
+			mechanism_command_id = 0;
 			cpp_arm_test();
 			break;
 		case 14:
-			test_mission = 0;
+			mechanism_command_id = 0;
 			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)(500 + 6.67 * 215));
 			break;
 		case 15:
-			test_mission = 0;
+			mechanism_command_id = 0;
 			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)(500 + 6.67 * 135));
 			break;
 		default:

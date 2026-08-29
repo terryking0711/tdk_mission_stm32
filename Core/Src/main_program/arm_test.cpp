@@ -24,7 +24,7 @@ int arm_init(void)
     HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_3);
     HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_4);
 
-    servo_base.attach(&htim5, TIM_CHANNEL_1, 6.6667f, 1500);
+    servo_base.attach(&htim5, TIM_CHANNEL_1, 6.6667f, 2200);
     servo_rotate.attach(&htim5, TIM_CHANNEL_2, 6.6667f, 1500);
     servo_claw.attach(&htim5, TIM_CHANNEL_3, 6.6667f, 1500);
     servo_wrist.attach(&htim5, TIM_CHANNEL_4, 7.3f, 600);

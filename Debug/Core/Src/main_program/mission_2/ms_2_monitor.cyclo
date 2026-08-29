@@ -6,9 +6,10 @@
 ../Core/Src/main_program/mission_2/ms_2_monitor.cpp:28:6:void MS_2_CCW_down()	1
 ../Core/Src/main_program/mission_2/ms_2_monitor.cpp:32:6:void MS_2_CW_rotate()	1
 ../Core/Src/main_program/mission_2/ms_2_monitor.cpp:36:6:void MS_2_CCW_rotate()	1
-../Core/Src/main_program/mission_2/ms_2_monitor.cpp:40:6:void MS_2_open_pink()	1
-../Core/Src/main_program/mission_2/ms_2_monitor.cpp:44:6:void MS_2_open_blue()	1
-../Core/Src/main_program/mission_2/ms_2_monitor.cpp:48:6:void MS_2_close_pink()	1
-../Core/Src/main_program/mission_2/ms_2_monitor.cpp:52:6:void MS_2_close_blue()	1
-../Core/Src/main_program/mission_2/ms_2_monitor.cpp:55:1:void __static_initialization_and_destruction_0()	1
-../Core/Src/main_program/mission_2/ms_2_monitor.cpp:55:1:cpp)	1
+../Core/Src/main_program/mission_2/ms_2_monitor.cpp:40:6:void MS_2_middle()	1
+../Core/Src/main_program/mission_2/ms_2_monitor.cpp:44:6:void MS_2_open_pink()	1
+../Core/Src/main_program/mission_2/ms_2_monitor.cpp:48:6:void MS_2_open_blue()	1
+../Core/Src/main_program/mission_2/ms_2_monitor.cpp:52:6:void MS_2_close_pink()	1
+../Core/Src/main_program/mission_2/ms_2_monitor.cpp:56:6:void MS_2_close_blue()	1
+../Core/Src/main_program/mission_2/ms_2_monitor.cpp:59:1:void __static_initialization_and_destruction_0()	1
+../Core/Src/main_program/mission_2/ms_2_monitor.cpp:59:1:cpp)	1
