@@ -107,7 +107,7 @@ void StartTask02(void *argument)
 			break;
 		case 14:
 			mechanism_command_id = 0;
-			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)(500 + 6.67 * 215));
+			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)(500 + 6.67 * 210));
 			break;
 		case 15:
 			mechanism_command_id = 0;
