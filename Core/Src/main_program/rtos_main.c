@@ -86,22 +86,28 @@ void StartTask02(void *argument)
 			mechanism_command_id = 0;
 			pusher_retract();
 			break;
-//		 case 10: // servo 放開 box 鏡像
-//				mechanism_command_id = 0;
-//				MS_2_open_pink();
-//				break;
-//		 case 4:
+
+		/* 待編號動作：將 YOUR_COMMAND_ID 改成指令編號，再解除該 case 的註解。 */
+
+//		case YOUR_COMMAND_ID: // Mission 2 逆時針降下
 //			mechanism_command_id = 0;
 //			MS_2_CCW_down();
 //			break;
-//		 case 6:
-//				 	mechanism_command_id = 0;
-//				 	MS_2_CCW_rotate();
-//				 	break;
-//		 case 8:	// servo 咬住 box 鏡像
-//		 	mechanism_command_id = 0;
-//		 	MS_2_close_pink();
-//		 	break;
+
+//		case YOUR_COMMAND_ID: // Mission 2 粉色側 servo 放開 box
+//			mechanism_command_id = 0;
+//			MS_2_open_pink();
+//			break;
+
+//		case YOUR_COMMAND_ID: // Mission 2 粉色側 servo 咬住 box
+//			mechanism_command_id = 0;
+//			MS_2_close_pink();
+//			break;
+
+//		case YOUR_COMMAND_ID: // 執行手臂動作腳本
+//			mechanism_command_id = 0;
+//			cpp_arm_test();
+//			break;
 
 		default:
 			break;
