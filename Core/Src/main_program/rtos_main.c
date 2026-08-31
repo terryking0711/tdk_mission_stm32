@@ -22,7 +22,7 @@ volatile bool limsw = false;
 // osSemaphoreId_t limsw_sem;
 volatile bool Prepared = false;
 
-volatile test_angle_1 = 90, test_angle_2 = 90;
+volatile int test_angle_1 = 90, test_angle_2 = 90;
 
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
