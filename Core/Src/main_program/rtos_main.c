@@ -22,15 +22,14 @@ volatile bool limsw = false;
 // osSemaphoreId_t limsw_sem;
 volatile bool Prepared = false;
 
+volatile test_angle_1 = 90, test_angle_2 = 90;
+
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 
 void StartDefaultTask(void *argument)
 {
-//	while (!Prepared)
-//	{
-//		osDelay(1);
-//	}
 	HAL_TIM_Base_Start_IT(&htim2);
 	servo_init();
 	cpp_arm_init();
@@ -47,7 +46,6 @@ void StartTask02(void *argument)
 	for (;;)
 	{
 		task02++;
-
 		// /mechanism/command 觸發的機構動作 (command_id 由 mechanism_command_cb 更新)
 		switch (mechanism_command_id)
 		{
@@ -88,7 +86,6 @@ void StartTask02(void *argument)
 			mechanism_command_id = 0;
 			pusher_retract();
 			break;
-
 //		 case 10: // servo 放開 box 鏡像
 //				mechanism_command_id = 0;
 //				MS_2_open_pink();
@@ -112,6 +109,13 @@ void StartTask02(void *argument)
 
 		task_remain = uxTaskGetStackHighWaterMark(NULL);
 		osDelay(1);
+	}
+}
+
+void StartTask03(void *argument){
+	for(;;){
+		cpp_arm_update();
+		osDelay(10);
 	}
 }
 

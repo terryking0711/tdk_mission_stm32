@@ -23,6 +23,8 @@ extern "C" {
 
         void initial_servo();
         void set_angle(bool dir);
+        void set_angle(servo servo_1, servo servo_2, bool dir);
+        static void set_angle_sync(servo &servo_1, servo &servo_2, bool dir);
 
     private:
         TIM_HandleTypeDef *_pwm;

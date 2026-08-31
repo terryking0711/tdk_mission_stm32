@@ -17,6 +17,7 @@ void MS_2_CW_down();
 void MS_2_CCW_down();
 void MS_2_CW_rotate();
 void MS_2_CCW_rotate();
+void MS_2_middle();
 void MS_2_open_pink();
 void MS_2_open_blue();
 void MS_2_middle();
