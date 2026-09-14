@@ -22,20 +22,25 @@ volatile int target_speed = 400;
 
 //                pwm      channel     prepare_angle   initial_angle   target_angle   period   per   min_pwm   max_pwm
 servo servo_2_1(&htim3, TIM_CHANNEL_1,     247,             247,           180,        1000,    6.67,   500,     2500);
-servo servo_2_2(&htim3, TIM_CHANNEL_2,     48,              48,            124,        1000,    6.67,   500,     2500);
+servo servo_2_2(&htim3, TIM_CHANNEL_2,     48,              48,            126,        1000,    6.67,   500,     2500);
 
 void servo_init(){
     servo_2_1.initial_servo();
     servo_2_2.initial_servo();
 }
 
-void pusher_extend(){
+void pusher_extend_1(){
     servo::set_angle_sync(servo_2_1, servo_2_2, 1);
-    osDelay(100);
+}
+
+void pusher_extend_2(){
     __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, ( 500 + 6.67 * 87 ));
-    // servo_2_2.set_angle(1);
-    // osDelay(500);
-    // servo_2_1.set_angle(1);
+}
+
+void pusher_extend(){
+    pusher_extend_1();
+    osDelay(100);
+    pusher_extend_2();
 }
 
 void pusher_retract(){

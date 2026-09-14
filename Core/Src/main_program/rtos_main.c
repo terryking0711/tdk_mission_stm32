@@ -32,7 +32,7 @@ void StartDefaultTask(void *argument)
 {
 	HAL_TIM_Base_Start_IT(&htim2);
 	servo_init();
-	cpp_arm_init();
+	// cpp_arm_init();
 	uros_init();
 	for (;;)
 	{
@@ -53,9 +53,40 @@ void StartTask02(void *argument)
 			mechanism_command_id = 0;
 			MS_2_init();
 			break;
-		case 2001:	// 順時針 down
+		case 201: // pusher extend (both stages)
 			mechanism_command_id = 0;
-			MS_2_CW_down();
+			pusher_extend();
+			break;
+
+		case 2101: // pusher extend stage 1
+			mechanism_command_id = 0;
+			pusher_extend_1();
+			break;
+
+		case 2201: // pusher extend stage 2
+			mechanism_command_id = 0;
+			pusher_extend_2();
+			break;
+
+		case 2010: // pusher 升到最高點:
+			mechanism_command_id = 0;
+			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)(500 + 6.67 * 210));
+			break;
+
+		// navigation
+		case 202: // pusher extract
+			mechanism_command_id = 0;
+			pusher_retract();
+			break;
+		//navigation
+		 case 2001:	// 翻回去
+		 	mechanism_command_id = 0;
+		 	MS_2_CCW_down();
+		 	break;
+		// navigationservo
+		case 203:	//  咬住 box
+			mechanism_command_id = 0;
+			MS_2_close_blue();
 			break;
 		case 204:	// 順時針 rotate
 			mechanism_command_id = 0;
@@ -63,29 +94,25 @@ void StartTask02(void *argument)
 			break;
 		 case 205:	// 翻回去
 		 	mechanism_command_id = 0;
-		 	MS_2_CCW_rotate();
+		 	MS_2_CCW_down();
 		 	break;
-		case 203:	// servo 咬住 box
-			mechanism_command_id = 0;
-			MS_2_close_blue();
-			break;
+		 // navigation
 		case 206: // servo 放開 box
 			mechanism_command_id = 0;
 			MS_2_open_blue();
 			break;
 
-		case 207: //
+		case 207: // 置中
 			mechanism_command_id = 0;
 			MS_2_middle();
 			break;
-		case 201: // pusher extend
+
+		case 2011:	// push 從最高點放平
 			mechanism_command_id = 0;
-			pusher_extend();
+			__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, (uint32_t)(500 + 6.67 * 135));
 			break;
-		case 202:
-			mechanism_command_id = 0;
-			pusher_retract();
-			break;
+ 
+		
 
 //		 case 10: // servo 放開 box 鏡像
 //				mechanism_command_id = 0;
