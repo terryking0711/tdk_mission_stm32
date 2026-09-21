@@ -35,6 +35,9 @@ void pusher_extend_1(){
 
 void pusher_extend_2(){
     __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, ( 500 + 6.67 * 87 ));
+    osDelay(50);
+    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, ( 500 + 6.67 * 96 ));
+    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, ( 500 + 6.67 * 117 ));
 }
 
 void pusher_extend(){
